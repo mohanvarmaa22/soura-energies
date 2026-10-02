@@ -18,7 +18,7 @@ export type Project = {
 const client = sanityConfigured ? createClient({ projectId, dataset, apiVersion, useCdn: true }) : null;
 
 export function imageUrl(source: Project["image"], width: number) {
-  if (!client || !source) return null;
+  if (!client || !source?.asset) return null;
   return createImageUrlBuilder({ projectId, dataset }).image(source).width(width).auto("format").url();
 }
 

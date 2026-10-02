@@ -22,7 +22,7 @@ export const project = defineType({
       type: "image",
       options: { hotspot: true },
       fields: [defineField({ name: "alt", type: "string", title: "Describe the photo", validation: (r) => r.required() })],
-      validation: (r) => r.required(),
+      validation: (r) => r.required().assetRequired(),
     }),
     defineField({ name: "featured", type: "boolean", initialValue: false, description: "Shown larger at the top of the page." }),
   ],
