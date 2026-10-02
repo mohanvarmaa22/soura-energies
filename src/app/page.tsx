@@ -88,6 +88,9 @@ export default function Home() {
           <ImageSlot label="Residential project" className="min-h-48 rounded-3xl" />
           <ImageSlot label="Commercial project" className="min-h-48 rounded-3xl" />
         </div>
+        <div className="mt-6">
+          <Button href="/projects" variant="secondary">See all projects</Button>
+        </div>
       </section>
 
       {/* Who it's for */}

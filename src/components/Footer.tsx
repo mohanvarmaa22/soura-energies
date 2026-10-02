@@ -19,7 +19,7 @@ export function Footer() {
         <div className="text-sm text-muted">
           <p className="font-semibold text-foreground">Explore</p>
           <p className="mt-2"><Link href="/#process" className="hover:text-foreground">Process</Link></p>
-          <p><Link href="/#projects" className="hover:text-foreground">Projects</Link></p>
+          <p><Link href="/projects" className="hover:text-foreground">Projects</Link></p>
           <p><Link href="/#faq" className="hover:text-foreground">FAQ</Link></p>
           <p><Link href="/privacy" className="hover:text-foreground">Privacy policy</Link></p>
           <p><CookieSettingsButton /></p>
