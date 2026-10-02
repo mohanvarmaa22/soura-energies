@@ -139,6 +139,7 @@ Soura Energies is a solar installation company in **Telangana, India**. It also 
 | 18 | Estimator paused: real rates (brand, structure, fixed cost, tariff slabs) to be supplied later; placeholders in place | 2026-10-02 |
 | 19 | Lead delivery: Resend email + Google Sheet via Apps Script webhook; form has honeypot, rate limit, consent checkbox | 2026-10-02 |
 | 20 | Privacy and analytics: /privacy page; GA4 loads only after the visitor accepts the cookie banner (no banner or GA when NEXT_PUBLIC_GA_ID is unset); events: form_start, generate_lead, estimator_calculate; footer has "Cookie settings" and developer credit | 2026-10-02 |
+| 21 | SEO: sitemap.xml, robots.txt, generated Open Graph image, LocalBusiness JSON-LD; canonical origin from NEXT_PUBLIC_SITE_URL (build arg) | 2026-10-02 |
 | 17 | Pricing is variable by building size, structure type and size, and panel brand (Tata, Waaree, Adani, Premier Energies); estimator models this from configurable rates | 2026-10-02 |
 | 14 | Stack: Next.js, TypeScript, Tailwind, Sanity, Resend; deployed on Google Cloud Run | 2026-10-02 |
 
