@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+/* Placeholder palette until the logo colors are supplied. One accent only. */
+:root {
+  --background: #f7f8f8;
+  --surface: #ffffff;
+  --foreground: #14181b;
+  --muted: #566067;
+  --line: #dde2e5;
+  --accent: #f0a30a;
+  --accent-ink: #1b1400;
+  --deep: #0f1c24;
+  --deep-foreground: #eef2f4;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0d1317;
+    --surface: #141c22;
+    --foreground: #e8edf0;
+    --muted: #9aa6ad;
+    --line: #25303a;
+    --accent: #f5b021;
+    --accent-ink: #1b1400;
+    --deep: #070b0e;
+    --deep-foreground: #eef2f4;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-deep: var(--deep);
+  --color-deep-foreground: var(--deep-foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
