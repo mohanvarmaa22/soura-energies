@@ -66,7 +66,7 @@ export function Analytics() {
 export function CookieSettingsButton() {
   if (!GA_ID) return null;
   return (
-    <button type="button" onClick={() => writeConsent(null)} className="hover:text-foreground">
+    <button type="button" onClick={() => writeConsent(null)} className="inline-block py-1.5 hover:text-foreground">
       Cookie settings
     </button>
   );

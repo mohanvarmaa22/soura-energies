@@ -2,18 +2,22 @@
 
 import { motion, useReducedMotion } from "motion/react";
 
+/** Fades content in on scroll. Do not wrap the above-the-fold headline: it delays LCP until hydration. */
 export function Reveal({
   children,
   delay = 0,
   className,
+  as = "div",
 }: {
   children: React.ReactNode;
   delay?: number;
   className?: string;
+  as?: "div" | "li";
 }) {
   const reduce = useReducedMotion();
+  const Tag = as === "li" ? motion.li : motion.div;
   return (
-    <motion.div
+    <Tag
       className={className}
       initial={reduce ? false : { opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -21,6 +25,6 @@ export function Reveal({
       transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
-    </motion.div>
+    </Tag>
   );
 }

@@ -99,7 +99,7 @@ export function ProjectGallery({ projects }: { projects: GalleryProject[] }) {
                   {p.type === "residential" ? "Residential" : "Commercial"}
                   {p.year ? ` · ${p.year}` : ""}
                 </p>
-                <h3 className="mt-1 text-lg font-bold tracking-tight">{p.title}</h3>
+                <h2 className="mt-1 text-lg font-bold tracking-tight">{p.title}</h2>
                 <p className="mt-1 flex items-center gap-1 text-sm text-muted">
                   <MapPin size={16} aria-hidden /> {p.city}
                 </p>

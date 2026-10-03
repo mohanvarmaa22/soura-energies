@@ -19,7 +19,7 @@ export default async function Home() {
     <>
       {/* Hero */}
       <section className="mx-auto grid max-w-7xl items-center gap-10 px-4 pb-16 pt-12 sm:px-6 md:grid-cols-[1.1fr_0.9fr] md:pt-16 lg:gap-16">
-        <Reveal>
+        <div>
           <h1 className="text-4xl font-bold leading-[1.05] tracking-tighter md:text-5xl lg:text-6xl">
             Cut your power bill with rooftop solar.
           </h1>
@@ -30,7 +30,7 @@ export default async function Home() {
             <Button href="/quote">{site.cta}</Button>
             <Button href="/estimator" variant="secondary">Estimate savings</Button>
           </div>
-        </Reveal>
+        </div>
         <Reveal delay={0.1}>
           <ImageSlot label="Residential rooftop installation" className="aspect-[4/5] rounded-3xl md:aspect-[4/5]" />
         </Reveal>
@@ -62,12 +62,10 @@ export default async function Home() {
         </Reveal>
         <ol className="mt-10 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           {process.map((p, i) => (
-            <Reveal key={p.title} delay={i * 0.06} className="border-t border-line pt-5">
-              <li>
-                <p.icon size={28} weight="duotone" className="text-accent" />
-                <h3 className="mt-4 font-semibold">{p.title}</h3>
-                <p className="mt-2 text-sm text-muted">{p.body}</p>
-              </li>
+            <Reveal as="li" key={p.title} delay={i * 0.06} className="border-t border-line pt-5">
+              <p.icon size={28} weight="duotone" className="text-accent-text" />
+              <h3 className="mt-4 font-semibold">{p.title}</h3>
+              <p className="mt-2 text-sm text-muted">{p.body}</p>
             </Reveal>
           ))}
         </ol>
@@ -118,7 +116,7 @@ export default async function Home() {
       <section className="border-y border-line bg-surface">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-[1.4fr_1fr] md:py-20">
           <Reveal>
-            <HouseLine size={32} weight="duotone" className="text-accent" />
+            <HouseLine size={32} weight="duotone" className="text-accent-text" />
             <h2 className="mt-4 text-2xl font-bold tracking-tight md:text-3xl">Homes first.</h2>
             <p className="mt-3 max-w-[55ch] text-muted">
               Our residential packages are built around subsidy eligibility, net metering and a payback you can plan around.
@@ -141,7 +139,7 @@ export default async function Home() {
             <details key={f.q} className="group py-5">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold">
                 {f.q}
-                <span className="text-accent transition-transform group-open:rotate-45" aria-hidden>+</span>
+                <span className="text-accent-text transition-transform group-open:rotate-45" aria-hidden>+</span>
               </summary>
               <p className="mt-3 max-w-[60ch] text-muted">{f.a}</p>
             </details>

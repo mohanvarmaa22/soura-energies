@@ -92,7 +92,7 @@ export function QuoteForm() {
 
       <div className="sm:col-span-2">
         <label className="flex items-start gap-3 text-sm">
-          <input type="checkbox" name="consent" className="mt-1 size-4 accent-[var(--accent)]" aria-invalid={!!errors.consent} />
+          <input type="checkbox" name="consent" className="mt-0.5 size-5 shrink-0 accent-[var(--accent)]" aria-invalid={!!errors.consent} />
           <span>I agree to be contacted by Soura Energies about my solar enquiry by call or WhatsApp.</span>
         </label>
         {errors.consent && <p className="mt-2 text-sm text-red-600 dark:text-red-400">{errors.consent}</p>}

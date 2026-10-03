@@ -18,10 +18,10 @@ export function Footer() {
         </div>
         <div className="text-sm text-muted">
           <p className="font-semibold text-foreground">Explore</p>
-          <p className="mt-2"><Link href="/#process" className="hover:text-foreground">Process</Link></p>
-          <p><Link href="/projects" className="hover:text-foreground">Projects</Link></p>
-          <p><Link href="/faq" className="hover:text-foreground">FAQ</Link></p>
-          <p><Link href="/privacy" className="hover:text-foreground">Privacy policy</Link></p>
+          <p className="mt-2"><Link href="/#process" className="inline-block py-1.5 hover:text-foreground">Process</Link></p>
+          <p><Link href="/projects" className="inline-block py-1.5 hover:text-foreground">Projects</Link></p>
+          <p><Link href="/faq" className="inline-block py-1.5 hover:text-foreground">FAQ</Link></p>
+          <p><Link href="/privacy" className="inline-block py-1.5 hover:text-foreground">Privacy policy</Link></p>
           <p><CookieSettingsButton /></p>
         </div>
       </div>
@@ -32,7 +32,7 @@ export function Footer() {
           href="https://mohanvarmaa22.github.io/mohan-portfolio/"
           target="_blank"
           rel="noopener noreferrer"
-          className="underline underline-offset-2 hover:text-foreground"
+          className="inline-block py-1 underline underline-offset-2 hover:text-foreground"
         >
           Mohan Varma
         </a>

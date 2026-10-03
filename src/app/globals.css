@@ -9,6 +9,7 @@
   --line: #dde2e5;
   --accent: #f0a30a;
   --accent-ink: #1b1400;
+  --accent-text: #9a6200; /* accent for text and icons on light surfaces (4.8:1) */
   --deep: #0f1c24;
   --deep-foreground: #eef2f4;
 }
@@ -22,6 +23,7 @@
     --line: #25303a;
     --accent: #f5b021;
     --accent-ink: #1b1400;
+    --accent-text: #f5b021;
     --deep: #070b0e;
     --deep-foreground: #eef2f4;
   }
@@ -35,6 +37,7 @@
   --color-line: var(--line);
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
+  --color-accent-text: var(--accent-text);
   --color-deep: var(--deep);
   --color-deep-foreground: var(--deep-foreground);
   --font-sans: var(--font-geist-sans);
