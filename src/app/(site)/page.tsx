@@ -1,8 +1,10 @@
 import { ArrowRight, Bank, ClipboardText, HouseLine, SolarPanel, Wrench, PhoneCall, WhatsappLogo, EnvelopeSimple, MapPin } from "@phosphor-icons/react/dist/ssr";
 import { site } from "@/config/site";
+import { homeFaqs } from "@/config/faqs";
 import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
 import { ImageSlot } from "@/components/ImageSlot";
+import { getTestimonials } from "@/sanity/client";
 
 const process = [
   { icon: ClipboardText, title: "Site survey", body: "We visit, measure your roof and review your electricity bill." },
@@ -11,14 +13,8 @@ const process = [
   { icon: Wrench, title: "Installation", body: "Certified installers fit the system and coordinate net metering." },
 ];
 
-const faqs = [
-  { q: "How much subsidy can I get?", a: `Central subsidy of up to ${site.subsidyMax} is available for eligible residential rooftop systems. The exact amount depends on system size. Our team confirms it during your quote.` },
-  { q: "Do you help with the bank loan?", a: "Yes. We guide you through the loan process from documents to approval." },
-  { q: "How long does installation take?", a: "Most home systems are installed in a few days once approvals are in place. Net metering approval from the DISCOM runs separately." },
-  { q: "Do panels need maintenance?", a: "Very little. Periodic cleaning and an annual check keep output steady." },
-];
-
-export default function Home() {
+export default async function Home() {
+  const testimonials = await getTestimonials();
   return (
     <>
       {/* Hero */}
@@ -93,6 +89,31 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Testimonials: shown only when the CMS has some */}
+      {testimonials.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 md:pb-24">
+          <Reveal>
+            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">What customers say.</h2>
+          </Reveal>
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
+            {testimonials.map((t, i) => (
+              <Reveal key={t._id} delay={i * 0.06}>
+                <figure className="flex h-full flex-col justify-between rounded-3xl border border-line bg-surface p-6">
+                  <blockquote className="text-pretty">&ldquo;{t.quote}&rdquo;</blockquote>
+                  <figcaption className="mt-6 text-sm">
+                    <span className="font-semibold">{t.name}</span>
+                    <span className="text-muted">
+                      {t.city ? `, ${t.city}` : ""}
+                      {t.systemKw ? ` · ${t.systemKw} kW system` : ""}
+                    </span>
+                  </figcaption>
+                </figure>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* Who it's for */}
       <section className="border-y border-line bg-surface">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-[1.4fr_1fr] md:py-20">
@@ -116,7 +137,7 @@ export default function Home() {
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Common questions</h2>
         </Reveal>
         <div className="mt-8 divide-y divide-line">
-          {faqs.map((f) => (
+          {homeFaqs.map((f) => (
             <details key={f.q} className="group py-5">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold">
                 {f.q}
@@ -125,6 +146,9 @@ export default function Home() {
               <p className="mt-3 max-w-[60ch] text-muted">{f.a}</p>
             </details>
           ))}
+        </div>
+        <div className="mt-8">
+          <Button href="/faq" variant="secondary">All questions</Button>
         </div>
       </section>
 

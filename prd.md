@@ -141,6 +141,7 @@ Soura Energies is a solar installation company in **Telangana, India**. It also 
 | 20 | Privacy and analytics: /privacy page; GA4 loads only after the visitor accepts the cookie banner (no banner or GA when NEXT_PUBLIC_GA_ID is unset); events: form_start, generate_lead, estimator_calculate; footer has "Cookie settings" and developer credit | 2026-10-02 |
 | 21 | SEO: sitemap.xml, robots.txt, generated Open Graph image, LocalBusiness JSON-LD; canonical origin from NEXT_PUBLIC_SITE_URL (build arg) | 2026-10-02 |
 | 22 | Projects: /projects gallery with type and size filters, content from Sanity (Studio embedded at /studio, project and testimonial schemas); sample data in dev only; setup in docs/sanity-setup.md | 2026-10-02 |
+| 23 | Home shows Sanity testimonials only when some exist; /faq page (grouped Q&A, FAQPage structured data) replaces the in-page FAQ link; home keeps four questions. FAQ copy is general and needs the team to verify | 2026-10-03 |
 | 17 | Pricing is variable by building size, structure type and size, and panel brand (Tata, Waaree, Adani, Premier Energies); estimator models this from configurable rates | 2026-10-02 |
 | 14 | Stack: Next.js, TypeScript, Tailwind, Sanity, Resend; deployed on Google Cloud Run | 2026-10-02 |
 
