@@ -1,23 +1,9 @@
 import Image from "next/image";
 
-/** Sun mark from the logo plus an HTML wordmark, so the name stays sharp at header size. */
-export function Logo({ onDark = false }: { onDark?: boolean }) {
-  return (
-    <span className="flex items-center gap-2.5">
-      <Image
-        src="/brand/sun.png"
-        alt=""
-        width={292}
-        height={256}
-        priority
-        className="h-9 w-auto transition-transform duration-300 ease-out-strong group-hover:rotate-12"
-      />
-      <span className="flex flex-col leading-none">
-        <span className={`text-lg font-extrabold tracking-wide ${onDark ? "text-deep-foreground" : "text-brand"}`}>SOURA</span>
-        <span className={`mt-0.5 text-[0.62rem] font-semibold tracking-[0.32em] ${onDark ? "text-positive" : "text-positive-text"}`}>
-          ENERGIES
-        </span>
-      </span>
-    </span>
+/** The full Soura Energies logo, used exactly as designed. On dark surfaces it sits on a white tile so the teal wordmark stays legible. */
+export function Logo({ onDark = false, className = "h-12" }: { onDark?: boolean; className?: string }) {
+  const img = (
+    <Image src="/brand/logo.png" alt="Soura Energies" width={390} height={240} priority={!onDark} className={`w-auto ${className}`} />
   );
+  return onDark ? <span className="inline-block rounded-2xl bg-white px-3 py-2">{img}</span> : img;
 }

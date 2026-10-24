@@ -58,7 +58,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 6rem;
   /* Lets height: auto animate (used by the FAQ accordion). */
   interpolate-size: allow-keywords;
 }

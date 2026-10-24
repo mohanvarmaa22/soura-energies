@@ -30,9 +30,9 @@ export function Header() {
           scrolled ? "border-line bg-background/85 shadow-card" : "border-transparent bg-background/60"
         }`}
       >
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
+        <div className="mx-auto flex h-[4.5rem] md:h-20 max-w-7xl items-center justify-between px-4 sm:px-6">
           <Link href="/" aria-label={`${site.name} home`} className="group">
-            <Logo />
+            <Logo className="h-12 md:h-16" />
           </Link>
 
           <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">

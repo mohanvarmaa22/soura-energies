@@ -11,7 +11,7 @@ export function Footer() {
     <footer className="bg-deep pb-20 text-deep-foreground md:pb-0">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[2fr_1fr_1fr]">
         <div>
-          <Logo onDark />
+          <Logo onDark className="h-16" />
           <p className="mt-4 max-w-sm text-sm text-deep-foreground/70">
             {site.tagline}. Installation, subsidy and loan support under one roof.
           </p>

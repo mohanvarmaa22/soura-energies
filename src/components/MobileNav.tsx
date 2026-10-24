@@ -47,7 +47,7 @@ export function MobileNav() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: reduce ? 0 : -8, transition: { duration: 0.12 } }}
             transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
-            className="absolute inset-x-0 top-16 border-b border-line bg-background px-4 pb-6 shadow-lift"
+            className="absolute inset-x-0 top-[4.5rem] border-b border-line bg-background px-4 pb-6 shadow-lift"
           >
             <ul className="divide-y divide-line">
               {nav.map((n, i) => (
