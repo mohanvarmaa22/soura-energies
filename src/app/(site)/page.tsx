@@ -1,5 +1,5 @@
-import { ArrowUpRight, Bank, ClipboardText, HouseLine, SolarPanel, Wrench, PhoneCall, WhatsappLogo, EnvelopeSimple, MapPin, Lightning, Buildings } from "@phosphor-icons/react/dist/ssr";
-import { site } from "@/config/site";
+import { ArrowUpRight, SealCheck, Bank, ClipboardText, HouseLine, SolarPanel, Wrench, PhoneCall, WhatsappLogo, EnvelopeSimple, MapPin, Lightning, Buildings } from "@phosphor-icons/react/dist/ssr";
+import { site, stats, credentials } from "@/config/site";
 import { homeFaqs } from "@/config/faqs";
 import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
@@ -34,7 +34,7 @@ export default async function Home() {
               Cut your power bill with <span className="text-brand">rooftop solar.</span>
             </h1>
             <p style={rise(1)} className="rise mt-5 max-w-[48ch] text-lg text-muted">
-              We install the system and handle the subsidy and loan paperwork for homes across Telangana.
+              We install the system and handle the subsidy and loan paperwork for homes across Telangana and Andhra Pradesh.
             </p>
             <div style={rise(2)} className="rise mt-8 flex flex-wrap gap-3">
               <Button href="/quote" arrow>{site.cta}</Button>
@@ -45,6 +45,26 @@ export default async function Home() {
             <ImageSlot label="Residential rooftop installation" className="h-[min(32rem,70dvh)] rounded-3xl shadow-lift" />
           </div>
         </div>
+      </section>
+
+      {/* Track record and credentials: directly under the hero, kept out of it */}
+      <section aria-label="Track record" className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 md:pb-20">
+        <Reveal className="grid gap-8 border-y border-line py-8 md:grid-cols-[auto_auto_1fr] md:items-center md:gap-12">
+          {stats.map((s) => (
+            <p key={s.label} className="flex items-baseline gap-3 md:block">
+              <span className="text-4xl font-bold tracking-tighter text-brand md:text-5xl">{s.value}</span>
+              <span className="text-muted md:mt-1 md:block">{s.label}</span>
+            </p>
+          ))}
+          <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2 md:border-l md:border-line md:pl-12">
+            {credentials.map((c) => (
+              <li key={c} className="flex items-center gap-2.5 text-sm font-medium">
+                <SealCheck size={20} weight="duotone" aria-hidden className="shrink-0 text-brand" />
+                {c}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
       </section>
 
       {/* Subsidy, loan and net metering */}
@@ -66,7 +86,7 @@ export default async function Home() {
           <Reveal delay={0.08} className="rounded-3xl bg-brand p-8 text-white">
             <Bank size={32} weight="duotone" aria-hidden />
             <h3 className="mt-6 text-xl font-bold tracking-tight">Loan paperwork handled</h3>
-            <p className="mt-2 text-white/90">We guide you from documents to approval, so financing does not slow your install.</p>
+            <p className="mt-2 text-white/90">We work with all national banks and guide you from documents to approval.</p>
           </Reveal>
           <Reveal delay={0.16} className="rounded-3xl border border-line bg-surface p-8 shadow-card">
             <Lightning size={32} weight="duotone" aria-hidden className="text-brand" />
@@ -100,7 +120,7 @@ export default async function Home() {
       {/* Projects */}
       <section id="projects" className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 md:pb-24">
         <Reveal>
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Installed across Telangana.</h2>
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Installed across Telangana and Andhra Pradesh.</h2>
           <p className="mt-3 max-w-[60ch] text-muted">Real homes and businesses, with capacity and location for each.</p>
         </Reveal>
         {/* One aligned row, featured project wider. Stacks to one column on mobile. */}
@@ -204,7 +224,7 @@ export default async function Home() {
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-24">
           <Reveal>
             <h2 className="max-w-[18ch] text-3xl font-bold tracking-tight md:text-5xl">Ready to see your numbers?</h2>
-            <p className="mt-4 max-w-[50ch] text-deep-foreground/75">Request a callback or reach us directly.</p>
+            <p className="mt-4 max-w-[50ch] text-deep-foreground/75">Request a callback or reach us directly. {site.hours}.</p>
             <div className="mt-6"><Button href="/quote" arrow>{site.cta}</Button></div>
           </Reveal>
           <Reveal delay={0.1} className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -220,7 +240,10 @@ export default async function Home() {
               <span className="flex items-center gap-3"><EnvelopeSimple size={22} className="text-accent" /> {site.email}</span>
               <ArrowUpRight size={16} aria-hidden className="text-deep-foreground/50 transition-transform duration-200 ease-out-strong group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
-            <p className="flex items-center gap-3 rounded-2xl border border-white/15 p-4"><MapPin size={22} className="text-accent" /> {site.address}</p>
+            <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className={contactTile}>
+              <span className="flex items-center gap-3"><MapPin size={22} className="text-accent" /> {site.addressShort}</span>
+              <ArrowUpRight size={16} aria-hidden className="text-deep-foreground/50 transition-transform duration-200 ease-out-strong group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
           </Reveal>
         </div>
       </section>

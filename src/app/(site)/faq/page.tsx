@@ -8,7 +8,7 @@ import { site } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Solar FAQ",
-  description: "Plain answers on rooftop solar in Telangana: subsidy, loans, net metering, installation, cost and maintenance.",
+  description: "Plain answers on rooftop solar in Telangana and Andhra Pradesh: subsidy, loans, net metering, installation, cost and maintenance.",
 };
 
 export default function FaqPage() {

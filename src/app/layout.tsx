@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   openGraph: { type: "website", locale: "en_IN", siteName: site.name },
   twitter: { card: "summary_large_image" },
-  title: { default: `${site.name} | Rooftop Solar in Telangana`, template: `%s | ${site.name}` },
-  description: `Rooftop solar installation in Telangana with subsidy of up to ${site.subsidyMax} and loan support handled for you. Get a free quote.`,
+  title: { default: `${site.name} | Rooftop Solar in Telangana and Andhra Pradesh`, template: `%s | ${site.name}` },
+  description: `Rooftop solar installation in Telangana and Andhra Pradesh with subsidy of up to ${site.subsidyMax} and loan support handled for you. Get a free quote.`,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -10,7 +10,7 @@ export const faqGroups: { title: string; items: Faq[] }[] = [
         q: "How much subsidy can I get?",
         a: `Central subsidy of up to ${site.subsidyMax} is available for eligible residential rooftop systems under PM Surya Ghar. The exact amount depends on system size. Our team confirms it during your quote.`,
       },
-      { q: "Do you help with the bank loan?", a: "Yes. We guide you through the loan process from documents to approval." },
+      { q: "Do you help with the bank loan?", a: "Yes. We work with all national banks and guide you through the loan process from documents to approval." },
       { q: "Who applies for the subsidy?", a: "We prepare and track the application with you. The subsidy is paid by the government after your system is installed and inspected, so plan your cash flow accordingly." },
       { q: "Can businesses get the subsidy?", a: "The central rooftop subsidy is for residential systems. Commercial systems are sized and priced separately. Request a site survey and we will explain the options." },
     ],

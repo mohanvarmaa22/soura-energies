@@ -5,17 +5,35 @@ import { Analytics } from "@/components/Analytics";
 import { site } from "@/config/site";
 import { siteUrl } from "@/config/url";
 
-const hasRealPhone = !site.phone.includes("00000");
 const localBusiness = {
   "@context": "https://schema.org",
   "@type": "HomeAndConstructionBusiness",
   name: site.name,
   description: site.tagline,
   url: siteUrl,
-  ...(hasRealPhone && { telephone: site.phone }),
+  logo: `${siteUrl}/brand/logo.jpeg`,
+  telephone: site.phone,
   email: site.email,
-  address: { "@type": "PostalAddress", addressLocality: "Hyderabad", addressRegion: "Telangana", addressCountry: "IN" },
-  areaServed: { "@type": "State", name: "Telangana" },
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.postal.street,
+    addressLocality: site.postal.locality,
+    addressRegion: site.postal.region,
+    postalCode: site.postal.postalCode,
+    addressCountry: "IN",
+  },
+  hasMap: site.mapsUrl,
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    opens: "10:00",
+    closes: "18:30",
+  },
+  areaServed: [
+    { "@type": "State", name: "Telangana" },
+    { "@type": "State", name: "Andhra Pradesh" },
+  ],
+  sameAs: Object.values(site.social),
   priceRange: "$$",
 };
 

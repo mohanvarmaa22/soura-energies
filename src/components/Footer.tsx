@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FacebookLogo, InstagramLogo } from "@phosphor-icons/react/dist/ssr";
 import { site } from "@/config/site";
 import { CookieSettingsButton } from "@/components/Analytics";
 import { Logo } from "@/components/Logo";
@@ -22,10 +23,24 @@ export function Footer() {
               <a href={site.phoneHref} className={link}>{site.phone}</a>
             </li>
             <li>
+              <a href={site.whatsappHref} target="_blank" rel="noopener noreferrer" className={link}>WhatsApp</a>
+            </li>
+            <li>
               <a href={`mailto:${site.email}`} className={link}>{site.email}</a>
             </li>
-            <li className="py-1.5">{site.address}</li>
+            <li>
+              <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className={`${link} max-w-[32ch]`}>{site.address}</a>
+            </li>
+            <li className="py-1.5">{site.hours}</li>
           </ul>
+          <div className="mt-4 flex gap-2">
+            <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="grid size-10 place-items-center rounded-full border border-white/15 transition-colors duration-150 hover:border-white/40 hover:text-deep-foreground">
+              <InstagramLogo size={20} aria-hidden />
+            </a>
+            <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="grid size-10 place-items-center rounded-full border border-white/15 transition-colors duration-150 hover:border-white/40 hover:text-deep-foreground">
+              <FacebookLogo size={20} aria-hidden />
+            </a>
+          </div>
         </div>
         <div className="text-sm text-deep-foreground/70">
           <p className="font-semibold text-deep-foreground">Explore</p>

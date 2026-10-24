@@ -7,7 +7,7 @@ import { site } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: `Solar installations by ${site.name} across Telangana, with capacity, location and yearly savings.`,
+  description: `Solar installations by ${site.name} across Telangana and Andhra Pradesh, with capacity, location and yearly savings.`,
 };
 
 // Shown in development only, while Sanity is not configured. Never shipped to production.
@@ -35,7 +35,7 @@ export default async function ProjectsPage() {
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-20">
-      <PageHeader title="Installed across Telangana." lead="Real homes and businesses, with capacity, location and what each saves." />
+      <PageHeader title="Installed across Telangana and Andhra Pradesh." lead="Real homes and businesses, with capacity, location and what each saves." />
 
       <div className="mt-12">
         {projects && projects.length > 0 ? (

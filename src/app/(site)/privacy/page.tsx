@@ -18,7 +18,7 @@ export default function PrivacyPage() {
         <section>
           <h2>Who we are</h2>
           <p>
-            {site.name} is a solar installation company based in Telangana, India. This policy explains what we
+            {site.name} is a solar installation company based in Hyderabad, Telangana, India. This policy explains what we
             collect through this website and why. Contact us at {site.email} for anything below.
           </p>
         </section>
@@ -63,6 +63,10 @@ export default function PrivacyPage() {
           <p>
             Analytics cookies are set only after you click Accept. You can change your choice at any time with
             &ldquo;Cookie settings&rdquo; in the footer. Declining does not affect how the site works.
+          </p>
+          <p>
+            The office map on the quote page is provided by Google Maps. It loads only when you tap &ldquo;Show
+            map&rdquo;, and Google may then set its own cookies under Google&rsquo;s privacy policy.
           </p>
         </section>
 
