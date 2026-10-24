@@ -103,12 +103,12 @@ export default async function Home() {
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Installed across Telangana.</h2>
           <p className="mt-3 max-w-[60ch] text-muted">Real homes and businesses, with capacity and location for each.</p>
         </Reveal>
-        {/* Offset strip: a different shape from the subsidy grid above. Stacks to one column on mobile. */}
-        <div className="mt-8 grid gap-4 md:grid-cols-[1.5fr_1fr_1fr] md:items-start">
+        {/* One aligned row, featured project wider. Stacks to one column on mobile. */}
+        <div className="mt-8 grid gap-4 md:grid-cols-[1.5fr_1fr_1fr]">
           {[
-            { label: "Featured project: home, Hyderabad", cls: "h-72 md:h-[26rem]" },
-            { label: "Residential project", cls: "h-56 md:mt-16 md:h-80" },
-            { label: "Commercial project", cls: "h-56 md:h-72" },
+            { label: "Featured project: home, Hyderabad", cls: "h-72 md:h-96" },
+            { label: "Residential project", cls: "h-56 md:h-96" },
+            { label: "Commercial project", cls: "h-56 md:h-96" },
           ].map((p, i) => (
             <Reveal key={p.label} delay={i * 0.08} className={`group overflow-hidden rounded-3xl ${p.cls}`}>
               <ImageSlot
