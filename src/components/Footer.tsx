@@ -1,38 +1,52 @@
 import Link from "next/link";
 import { site } from "@/config/site";
 import { CookieSettingsButton } from "@/components/Analytics";
+import { Logo } from "@/components/Logo";
+
+const link = "inline-block py-1.5 transition-colors duration-150 hover:text-deep-foreground";
 
 export function Footer() {
   return (
-    <footer className="border-t border-line pb-24 md:pb-0">
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-[2fr_1fr_1fr]">
+    <footer className="bg-deep pb-20 text-deep-foreground md:pb-0">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[2fr_1fr_1fr]">
         <div>
-          <p className="text-lg font-bold tracking-tight">{site.name}</p>
-          <p className="mt-2 max-w-sm text-sm text-muted">{site.tagline}. Installation, subsidy and loan support under one roof.</p>
+          <Logo onDark />
+          <p className="mt-4 max-w-sm text-sm text-deep-foreground/70">
+            {site.tagline}. Installation, subsidy and loan support under one roof.
+          </p>
         </div>
-        <div className="text-sm text-muted">
-          <p className="font-semibold text-foreground">Contact</p>
-          <p className="mt-2">{site.phone}</p>
-          <p>{site.email}</p>
-          <p>{site.address}</p>
+        <div className="text-sm text-deep-foreground/70">
+          <p className="font-semibold text-deep-foreground">Contact</p>
+          <ul className="mt-3 space-y-1.5">
+            <li>
+              <a href={site.phoneHref} className={link}>{site.phone}</a>
+            </li>
+            <li>
+              <a href={`mailto:${site.email}`} className={link}>{site.email}</a>
+            </li>
+            <li className="py-1.5">{site.address}</li>
+          </ul>
         </div>
-        <div className="text-sm text-muted">
-          <p className="font-semibold text-foreground">Explore</p>
-          <p className="mt-2"><Link href="/#process" className="inline-block py-1.5 hover:text-foreground">Process</Link></p>
-          <p><Link href="/projects" className="inline-block py-1.5 hover:text-foreground">Projects</Link></p>
-          <p><Link href="/faq" className="inline-block py-1.5 hover:text-foreground">FAQ</Link></p>
-          <p><Link href="/privacy" className="inline-block py-1.5 hover:text-foreground">Privacy policy</Link></p>
-          <p><CookieSettingsButton /></p>
+        <div className="text-sm text-deep-foreground/70">
+          <p className="font-semibold text-deep-foreground">Explore</p>
+          <ul className="mt-3">
+            <li><Link href="/#process" className={link}>Process</Link></li>
+            <li><Link href="/projects" className={link}>Projects</Link></li>
+            <li><Link href="/estimator" className={link}>Estimator</Link></li>
+            <li><Link href="/faq" className={link}>FAQ</Link></li>
+            <li><Link href="/privacy" className={link}>Privacy policy</Link></li>
+            <li><CookieSettingsButton /></li>
+          </ul>
         </div>
       </div>
-      <p className="border-t border-line px-4 py-6 text-center text-xs text-muted">
+      <p className="border-t border-white/10 px-4 py-6 text-center text-xs text-deep-foreground/60">
         © {new Date().getFullYear()} {site.name}. Savings and subsidy figures are estimates.
         {" "}Developed by{" "}
         <a
           href="https://mohanvarmaa22.github.io/mohan-portfolio/"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block py-1 underline underline-offset-2 hover:text-foreground"
+          className="inline-block py-1 font-medium text-deep-foreground underline underline-offset-2 transition-colors duration-150 hover:text-sun"
         >
           Mohan Varma
         </a>

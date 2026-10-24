@@ -1,16 +1,22 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { track } from "@/lib/analytics";
 import { estimate } from "@/lib/estimate";
 import { estimatorConfig, type BrandKey, type StructureKey } from "@/config/estimator";
 import { site } from "@/config/site";
 import { Button } from "./Button";
+import { AnimatedNumber } from "./AnimatedNumber";
 
 const inr = (n: number) => "₹" + Math.round(n).toLocaleString("en-IN");
+const inrOff = (n: number) => "- " + inr(n);
+const kw = (n: number) => `${Number.isInteger(n) ? Math.round(n) : n.toFixed(1)} kW`;
+const years = (n: number) => `${n.toFixed(1)} years`;
+const tonnes = (n: number) => `${n.toFixed(1)} tonnes`;
 
 const field =
-  "w-full rounded-xl border border-line bg-surface px-4 py-3 text-base text-foreground placeholder:text-muted focus:border-accent";
+  "w-full rounded-xl border border-field bg-background px-4 py-3 text-base text-foreground placeholder:text-muted transition-[border-color,box-shadow] duration-150 focus:border-brand focus:outline-none focus:ring-4 focus:ring-brand/20";
 
 export function EstimatorForm() {
   const [mode, setMode] = useState<"bill" | "units">("bill");
@@ -19,6 +25,8 @@ export function EstimatorForm() {
   const [brand, setBrand] = useState<BrandKey>("tata");
   const [area, setArea] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const toggleId = useId();
+  const reduce = useReducedMotion();
 
   const amount = Number(value);
   const valid = value !== "" && Number.isFinite(amount) && amount >= (mode === "bill" ? 200 : 50) && amount <= (mode === "bill" ? 100000 : 10000);
@@ -31,7 +39,7 @@ export function EstimatorForm() {
   }, [submitted, valid, mode, amount, brand, structure, area]);
 
   return (
-    <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+    <div className="grid items-start gap-8 lg:grid-cols-[0.9fr_1.1fr]">
       <form
         noValidate
         onSubmit={(e) => {
@@ -39,20 +47,27 @@ export function EstimatorForm() {
           setSubmitted(true);
           track("estimator_calculate", { mode, brand, structure });
         }}
-        className="space-y-6"
+        className="space-y-6 rounded-3xl border border-line bg-surface p-6 shadow-card md:p-8"
       >
         <fieldset>
           <legend className="mb-2 text-sm font-semibold">I know my</legend>
-          <div className="grid grid-cols-2 gap-2 rounded-full border border-line bg-surface p-1">
+          <div className="grid grid-cols-2 gap-1 rounded-full border border-line bg-background p-1">
             {(["bill", "units"] as const).map((m) => (
               <button
                 key={m}
                 type="button"
                 onClick={() => { setMode(m); setValue(""); setSubmitted(false); }}
                 aria-pressed={mode === m}
-                className={`rounded-full py-2 text-sm font-semibold transition-colors ${mode === m ? "bg-accent text-accent-ink" : "text-muted hover:text-foreground"}`}
+                className={`relative rounded-full py-2 text-sm font-semibold transition-colors duration-150 ${mode === m ? "text-white" : "text-muted hover:text-foreground"}`}
               >
-                {m === "bill" ? "Monthly bill" : "Monthly units"}
+                {mode === m && (
+                  <motion.span
+                    layoutId={`${toggleId}-pill`}
+                    className="absolute inset-0 rounded-full bg-brand"
+                    transition={reduce ? { duration: 0 } : { type: "spring", duration: 0.35, bounce: 0.15 }}
+                  />
+                )}
+                <span className="relative">{m === "bill" ? "Monthly bill" : "Monthly units"}</span>
               </button>
             ))}
           </div>
@@ -72,7 +87,7 @@ export function EstimatorForm() {
             aria-invalid={!!error}
             aria-describedby="amount-help"
           />
-          <p id="amount-help" className={`text-sm ${error ? "text-red-600 dark:text-red-400" : "text-muted"}`}>
+          <p id="amount-help" className={`text-sm ${error ? "text-red-700" : "text-muted"}`}>
             {error ?? "Use an average of the last 6 to 12 months."}
           </p>
         </div>
@@ -102,36 +117,56 @@ export function EstimatorForm() {
           <p className="text-sm text-muted">Brand and structure change the price. Your final quote is confirmed after a site survey.</p>
         </div>
 
-        <button type="submit" className="w-full rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-ink transition-transform active:scale-[0.98] sm:w-auto">
+        <button
+          type="submit"
+          className="w-full rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-ink shadow-[inset_0_1px_0_rgb(255_255_255/0.35),0_1px_2px_rgb(14_47_56/0.2)] transition-[transform,filter] duration-200 ease-out-strong hover:brightness-105 active:scale-[0.97] sm:w-auto"
+        >
           Calculate my savings
         </button>
       </form>
 
-      <div aria-live="polite">
+      <div aria-live="polite" className="lg:sticky lg:top-24">
         {result ? (
-          <div className="rounded-3xl border border-line bg-surface p-6 md:p-8">
-            <p className="text-sm text-muted">Recommended system</p>
-            <p className="text-5xl font-bold tracking-tighter">{result.kw} kW</p>
-            {result.roofLimited && (
-              <p className="mt-2 text-sm text-muted">Your roof area fits {result.kw} kW. Your usage could support {result.wantedKw} kW.</p>
-            )}
-            <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-5">
-              <Stat label="System cost" value={inr(result.grossCost)} />
-              <Stat label="Government subsidy" value={`- ${inr(result.subsidy)}`} accent />
-              <Stat label="Your cost after subsidy" value={inr(result.netCost)} strong />
-              <Stat label="Yearly savings" value={inr(result.annualSavings)} />
-              <Stat label="Payback" value={result.paybackYears ? `${result.paybackYears.toFixed(1)} years` : "n/a"} />
-              <Stat label="CO₂ avoided per year" value={`${result.co2TonnesPerYear.toFixed(1)} tonnes`} />
-            </dl>
-            <p className="mt-6 text-xs text-muted">
-              Based on about {result.monthlyUnits} units a month. This is an estimate. Final design, price and subsidy are confirmed after a site survey.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Button href="/quote">{site.cta}</Button>
+          <motion.div
+            initial={{ opacity: 0, y: reduce ? 0 : 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+            className="overflow-hidden rounded-3xl border border-line bg-surface shadow-lift"
+          >
+            <div className="relative isolate bg-deep p-6 text-deep-foreground md:p-8">
+              <div aria-hidden className="solar-cells absolute inset-0 -z-10 opacity-50" />
+              <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_95%_0%,rgb(248_173_38/0.25),transparent_55%)]" />
+              <p className="text-sm text-deep-foreground/70">Recommended system</p>
+              <p className="mt-1 text-6xl font-bold tracking-tighter text-sun">
+                <AnimatedNumber value={result.kw} format={kw} />
+              </p>
+              {result.roofLimited && (
+                <p className="mt-3 text-sm text-deep-foreground/70">Your roof area fits {result.kw} kW. Your usage could support {result.wantedKw} kW.</p>
+              )}
             </div>
-          </div>
+            <div className="p-6 md:p-8">
+              <dl className="grid grid-cols-2 gap-x-6 gap-y-6">
+                <Stat label="System cost" value={result.grossCost} format={inr} />
+                <Stat label="Government subsidy" value={result.subsidy} format={inrOff} positive />
+                <Stat label="Your cost after subsidy" value={result.netCost} format={inr} strong />
+                <Stat label="Yearly savings" value={result.annualSavings} format={inr} positive />
+                {result.paybackYears ? (
+                  <Stat label="Payback" value={result.paybackYears} format={years} positive />
+                ) : (
+                  <StatText label="Payback" text="n/a" />
+                )}
+                <Stat label="CO₂ avoided per year" value={result.co2TonnesPerYear} format={tonnes} positive />
+              </dl>
+              <p className="mt-6 text-xs text-muted">
+                Based on about {result.monthlyUnits} units a month. This is an estimate. Final design, price and subsidy are confirmed after a site survey.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Button href="/quote" arrow>{site.cta}</Button>
+              </div>
+            </div>
+          </motion.div>
         ) : (
-          <div className="flex min-h-64 items-center rounded-3xl border border-dashed border-line p-8 text-muted">
+          <div className="flex min-h-72 items-center justify-center rounded-3xl border border-dashed border-line p-8 text-center text-muted">
             Your system size, subsidy, cost and payback will appear here.
           </div>
         )}
@@ -140,11 +175,22 @@ export function EstimatorForm() {
   );
 }
 
-function Stat({ label, value, accent, strong }: { label: string; value: string; accent?: boolean; strong?: boolean }) {
+function Stat({ label, value, format, positive, strong }: { label: string; value: number; format: (n: number) => string; positive?: boolean; strong?: boolean }) {
   return (
     <div>
       <dt className="text-sm text-muted">{label}</dt>
-      <dd className={`mt-1 text-xl font-semibold tracking-tight ${accent ? "text-green-700 dark:text-green-400" : ""} ${strong ? "text-2xl" : ""}`}>{value}</dd>
+      <dd className={`mt-1 font-semibold tracking-tight tabular-nums ${positive ? "text-positive-text" : ""} ${strong ? "text-2xl" : "text-xl"}`}>
+        <AnimatedNumber value={value} format={format} />
+      </dd>
+    </div>
+  );
+}
+
+function StatText({ label, text }: { label: string; text: string }) {
+  return (
+    <div>
+      <dt className="text-sm text-muted">{label}</dt>
+      <dd className="mt-1 text-xl font-semibold tracking-tight">{text}</dd>
     </div>
   );
 }

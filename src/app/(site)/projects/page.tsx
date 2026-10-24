@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ProjectGallery, type GalleryProject } from "@/components/ProjectGallery";
 import { Button } from "@/components/Button";
+import { PageHeader } from "@/components/PageHeader";
 import { getProjects, imageUrl } from "@/sanity/client";
 import { site } from "@/config/site";
 
@@ -34,14 +35,13 @@ export default async function ProjectsPage() {
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-20">
-      <h1 className="max-w-[20ch] text-4xl font-bold leading-[1.05] tracking-tighter md:text-5xl">Installed across Telangana.</h1>
-      <p className="mt-4 max-w-[55ch] text-lg text-muted">Real homes and businesses, with capacity, location and what each saves.</p>
+      <PageHeader title="Installed across Telangana." lead="Real homes and businesses, with capacity, location and what each saves." />
 
-      <div className="mt-10">
+      <div className="mt-12">
         {projects && projects.length > 0 ? (
           <ProjectGallery projects={projects} />
         ) : (
-          <div className="rounded-2xl border border-dashed border-line p-10 text-center">
+          <div className="rounded-3xl border border-dashed border-line p-10 text-center">
             <p className="font-semibold">Projects are being added.</p>
             <p className="mt-2 text-muted">Want to see what we can do for your roof?</p>
             <div className="mt-6 flex justify-center">

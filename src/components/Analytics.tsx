@@ -34,24 +34,24 @@ export function Analytics() {
         <div
           role="dialog"
           aria-label="Cookie preferences"
-          className="fixed inset-x-3 bottom-20 z-50 mx-auto max-w-xl rounded-2xl border border-line bg-surface p-5 shadow-lg shadow-black/10 md:bottom-4 md:left-4 md:right-auto"
+          className="rise fixed inset-x-3 bottom-20 z-50 mx-auto max-w-xl rounded-3xl border border-line bg-surface p-5 shadow-lift md:bottom-4 md:left-4 md:right-auto"
         >
           <p className="text-sm text-muted">
             We use analytics cookies to see which pages help visitors, so we can improve the site. Nothing is loaded
-            unless you accept. See our <Link href="/privacy" className="font-semibold text-foreground underline underline-offset-2">privacy policy</Link>.
+            unless you accept. See our <Link href="/privacy" className="font-semibold text-brand underline underline-offset-2">privacy policy</Link>.
           </p>
           <div className="mt-4 flex gap-2">
             <button
               type="button"
               onClick={() => writeConsent("granted")}
-              className="rounded-full bg-accent px-5 py-2 text-sm font-semibold text-accent-ink transition-transform active:scale-[0.98]"
+              className="rounded-full bg-accent px-5 py-2 text-sm font-semibold text-accent-ink transition-transform duration-150 ease-out-strong active:scale-[0.97]"
             >
               Accept
             </button>
             <button
               type="button"
               onClick={() => writeConsent("denied")}
-              className="rounded-full border border-line px-5 py-2 text-sm font-semibold transition-colors hover:bg-line/40"
+              className="rounded-full border border-line px-5 py-2 text-sm font-semibold transition-[background-color,transform] duration-150 ease-out-strong hover:bg-line/40 active:scale-[0.97]"
             >
               Decline
             </button>
@@ -66,7 +66,7 @@ export function Analytics() {
 export function CookieSettingsButton() {
   if (!GA_ID) return null;
   return (
-    <button type="button" onClick={() => writeConsent(null)} className="inline-block py-1.5 hover:text-foreground">
+    <button type="button" onClick={() => writeConsent(null)} className="inline-block py-1.5 transition-colors duration-150 hover:text-deep-foreground">
       Cookie settings
     </button>
   );

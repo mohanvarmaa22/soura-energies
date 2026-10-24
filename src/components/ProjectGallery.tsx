@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useId, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { MapPin } from "@phosphor-icons/react";
 import { ImageSlot } from "@/components/ImageSlot";
 
@@ -42,19 +43,28 @@ function Chips<T extends string>({
   value: T;
   onChange: (v: T) => void;
 }) {
+  const id = useId();
+  const reduce = useReducedMotion();
   return (
-    <div role="group" aria-label={label} className="flex flex-wrap gap-2">
+    <div role="group" aria-label={label} className="flex flex-wrap gap-1 rounded-full border border-line bg-surface p-1">
       {options.map((o) => (
         <button
           key={o.value}
           type="button"
           aria-pressed={value === o.value}
           onClick={() => onChange(o.value)}
-          className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
-            value === o.value ? "border-accent bg-accent text-accent-ink" : "border-line text-muted hover:text-foreground"
+          className={`relative rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-150 ${
+            value === o.value ? "text-white" : "text-muted hover:text-foreground"
           }`}
         >
-          {o.label}
+          {value === o.value && (
+            <motion.span
+              layoutId={`${id}-chip`}
+              className="absolute inset-0 rounded-full bg-brand"
+              transition={reduce ? { duration: 0 } : { type: "spring", duration: 0.35, bounce: 0.15 }}
+            />
+          )}
+          <span className="relative">{o.label}</span>
         </button>
       ))}
     </div>
@@ -64,6 +74,7 @@ function Chips<T extends string>({
 export function ProjectGallery({ projects }: { projects: GalleryProject[] }) {
   const [type, setType] = useState<(typeof types)[number]["value"]>("all");
   const [size, setSize] = useState<(typeof sizes)[number]["value"]>("all");
+  const reduce = useReducedMotion();
 
   const test = sizes.find((s) => s.value === size)!.test;
   const shown = projects.filter((p) => (type === "all" || p.type === type) && test(p.capacityKw));
@@ -80,18 +91,27 @@ export function ProjectGallery({ projects }: { projects: GalleryProject[] }) {
       </p>
 
       {shown.length === 0 ? (
-        <p className="mt-6 rounded-2xl border border-dashed border-line p-10 text-center text-muted">
+        <p className="mt-6 rounded-3xl border border-dashed border-line p-10 text-center text-muted">
           No projects match these filters. Try a different type or size.
         </p>
       ) : (
         <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <AnimatePresence mode="popLayout" initial={false}>
           {shown.map((p) => (
-            <li key={p.id} className="overflow-hidden rounded-3xl border border-line bg-surface">
-              <div className="relative aspect-[4/3]">
+            <motion.li
+              key={p.id}
+              layout={!reduce}
+              initial={{ opacity: 0, scale: reduce ? 1 : 0.97 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: reduce ? 1 : 0.97, transition: { duration: 0.15 } }}
+              transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
+              className="group overflow-hidden rounded-3xl border border-line bg-surface shadow-card transition-[box-shadow,transform] duration-300 ease-out-strong hover:-translate-y-0.5 hover:shadow-lift"
+            >
+              <div className="relative aspect-[4/3] overflow-hidden">
                 {p.imageSrc ? (
-                  <Image src={p.imageSrc} alt={p.imageAlt} fill sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" className="object-cover" />
+                  <Image src={p.imageSrc} alt={p.imageAlt} fill sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" className="object-cover transition-transform duration-700 ease-out-strong group-hover:scale-[1.04]" />
                 ) : (
-                  <ImageSlot label={p.title} className="absolute inset-0" />
+                  <ImageSlot label={p.title} className="absolute inset-0 transition-transform duration-700 ease-out-strong group-hover:scale-[1.04]" />
                 )}
               </div>
               <div className="p-5">
@@ -112,13 +132,14 @@ export function ProjectGallery({ projects }: { projects: GalleryProject[] }) {
                   {p.annualSavings ? (
                     <div>
                       <dt className="text-muted">Saves per year</dt>
-                      <dd className="font-semibold">₹{p.annualSavings.toLocaleString("en-IN")}</dd>
+                      <dd className="font-semibold text-positive-text">₹{p.annualSavings.toLocaleString("en-IN")}</dd>
                     </div>
                   ) : null}
                 </dl>
               </div>
-            </li>
+            </motion.li>
           ))}
+          </AnimatePresence>
         </ul>
       )}
     </>

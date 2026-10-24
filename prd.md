@@ -83,7 +83,7 @@ Soura Energies is a solar installation company in **Telangana, India**. It also 
 ## 7. Design Direction
 
 - Premium, clean, trustworthy; avoids generic "template" solar looks.
-- Palette derived from the existing Soura Energies logo colors (logo file required); generous whitespace; strong typographic hierarchy.
+- Palette from the Soura Energies logo (Decision #24); generous whitespace; strong typographic hierarchy.
 - Photography/imagery of real installations over stock; restrained, purposeful motion.
 - Only a logo and domain exist; palette extension, typography and imagery guidance are part of phase 0.
 
@@ -115,7 +115,6 @@ Soura Energies is a solar installation company in **Telangana, India**. It also 
 1. **Loan scope on the site** (parked): process page, document intake, bank partners, EMI calculator? Subsidy is confirmed (see Decision Log #15).
 2. Exact commercial/industrial offering and how its quote flow differs from residential.
 3. Real pricing rates per brand and per structure type, fixed project cost, and Telangana tariff slabs (estimator currently uses placeholders).
-4. Logo file and brand colors (parked); use a placeholder palette until supplied.
 
 ## 12. Decision Log
 
@@ -142,7 +141,8 @@ Soura Energies is a solar installation company in **Telangana, India**. It also 
 | 21 | SEO: sitemap.xml, robots.txt, generated Open Graph image, LocalBusiness JSON-LD; canonical origin from NEXT_PUBLIC_SITE_URL (build arg) | 2026-10-02 |
 | 22 | Projects: /projects gallery with type and size filters, content from Sanity (Studio embedded at /studio, project and testimonial schemas); sample data in dev only; setup in docs/sanity-setup.md | 2026-10-02 |
 | 23 | Home shows Sanity testimonials only when some exist; /faq page (grouped Q&A, FAQPage structured data) replaces the in-page FAQ link; home keeps four questions. FAQ copy is general and needs the team to verify | 2026-10-03 |
+| 24 | Brand palette from the logo, light theme only: teal #287487 for brand, links, icons and dark bands (#0e2f38); sun orange #f87e13 with dark text for action buttons only; logo green for savings and success (#56661c as text); amber #f8ad26 for big figures on dark teal. Header and footer use the logo sun mark plus a text wordmark; favicon from the sun mark | 2026-10-24 |
 | 17 | Pricing is variable by building size, structure type and size, and panel brand (Tata, Waaree, Adani, Premier Energies); estimator models this from configurable rates | 2026-10-02 |
 | 14 | Stack: Next.js, TypeScript, Tailwind, Sanity, Resend; deployed on Google Cloud Run | 2026-10-02 |
 
-**Parked:** loan help on the site; logo file.
+**Parked:** loan help on the site.

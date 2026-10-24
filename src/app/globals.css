@@ -1,32 +1,30 @@
 @import "tailwindcss";
 
-/* Placeholder palette until the logo colors are supplied. One accent only. */
-:root {
-  --background: #f7f8f8;
-  --surface: #ffffff;
-  --foreground: #14181b;
-  --muted: #566067;
-  --line: #dde2e5;
-  --accent: #f0a30a;
-  --accent-ink: #1b1400;
-  --accent-text: #9a6200; /* accent for text and icons on light surfaces (4.8:1) */
-  --deep: #0f1c24;
-  --deep-foreground: #eef2f4;
-}
+/* Radius rule: buttons and chips are pills, sections and cards 24px (rounded-3xl),
+   inner tiles 16px (rounded-2xl), form fields 12px (rounded-xl). */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0d1317;
-    --surface: #141c22;
-    --foreground: #e8edf0;
-    --muted: #9aa6ad;
-    --line: #25303a;
-    --accent: #f5b021;
-    --accent-ink: #1b1400;
-    --accent-text: #f5b021;
-    --deep: #070b0e;
-    --deep-foreground: #eef2f4;
-  }
+/* Brand palette from the Soura Energies logo. Light theme only.
+   Teal = brand and trust, orange = action (buttons), green = savings and success. */
+:root {
+  color-scheme: light;
+  --background: #f6f9f9;
+  --surface: #ffffff;
+  --foreground: #10272e;
+  --muted: #4f6168;
+  --line: #d8e3e6; /* decorative dividers and card edges */
+  --field: #7b8f95; /* form control borders, 3.2:1 for WCAG 1.4.11 */
+  --brand: #287487; /* logo teal, 5.3:1 on white */
+  --brand-strong: #1d5a6a;
+  --accent: #f87e13; /* logo sun orange; needs dark text */
+  --accent-ink: #1a1205;
+  --accent-text: #b85a0a; /* orange for text and icons on light surfaces (4.7:1) */
+  --sun: #f8ad26; /* logo amber, for big figures on deep teal */
+  --positive: #a0b343; /* logo green, fills only */
+  --positive-text: #56661c; /* green for text on light surfaces (6.3:1) */
+  --deep: #0e2f38;
+  --deep-foreground: #eef5f6;
+  --shadow-card-value: 0 1px 2px rgb(14 47 56 / 0.05), 0 12px 32px -16px rgb(14 47 56 / 0.18);
+  --shadow-lift-value: 0 2px 4px rgb(14 47 56 / 0.06), 0 20px 40px -20px rgb(14 47 56 / 0.28);
 }
 
 @theme inline {
@@ -35,33 +33,128 @@
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-line: var(--line);
+  --color-field: var(--field);
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
   --color-accent-text: var(--accent-text);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-sun: var(--sun);
+  --color-positive: var(--positive);
+  --color-positive-text: var(--positive-text);
   --color-deep: var(--deep);
   --color-deep-foreground: var(--deep-foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --shadow-card: var(--shadow-card-value);
+  --shadow-lift: var(--shadow-lift-value);
+}
+
+@theme {
+  /* Strong ease-out: the built-in curves are too weak for UI motion. */
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
+  /* Lets height: auto animate (used by the FAQ accordion). */
+  interpolate-size: allow-keywords;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--brand) 25%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+}
+
+/* Solar-cell grid used by image placeholders. */
+.solar-cells {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 85% 85% at 70% 30%, #000 20%, transparent 78%);
+}
+
+/* Page-load entrance. CSS only, so it never waits on hydration. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.rise {
+  animation: rise 650ms var(--ease-out-strong) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+/* FAQ accordion: smooth open and close where ::details-content is supported. */
+details::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition:
+    block-size 260ms var(--ease-out-strong),
+    content-visibility 260ms allow-discrete;
+}
+
+details[open]::details-content {
+  block-size: auto;
+}
+
+summary::-webkit-details-marker {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-}
 
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
+  /* Fewer, gentler animations: keep the fade, drop the movement. */
+  .rise {
+    animation-name: fade;
+    animation-duration: 300ms;
+  }
+
+  details::details-content {
+    transition: none;
+  }
 }

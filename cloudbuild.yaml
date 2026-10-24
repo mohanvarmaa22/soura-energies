@@ -1,0 +1,18 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -t
+      - $_IMAGE
+      - --build-arg=NEXT_PUBLIC_SITE_URL=$_SITE_URL
+      - --build-arg=NEXT_PUBLIC_GA_ID=$_GA_ID
+      - --build-arg=NEXT_PUBLIC_SANITY_PROJECT_ID=$_SANITY_PROJECT_ID
+      - --build-arg=NEXT_PUBLIC_SANITY_DATASET=$_SANITY_DATASET
+      - .
+images:
+  - $_IMAGE
+substitutions:
+  _SITE_URL: ""
+  _GA_ID: ""
+  _SANITY_PROJECT_ID: iqq8y0z0
+  _SANITY_DATASET: production
